@@ -28,13 +28,12 @@ def analyze_python_code(code):
     tree = parse_python_code(code)
     parents, functions = find_parents(tree)
     
-    output_data = []
+    output_data = {}
     for name, parent in parents.items():
-        output_data.append({
+        output_data[name] = {
             "Type": 'Function' if parent else 'Class',
-            "Name": name,
             "Parent": parent,
             "Contents": functions[name]
-        })
+        }
     
     return json.dumps(output_data, indent=4)
